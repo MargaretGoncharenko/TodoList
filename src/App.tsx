@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Todolist} from "./Todolist";
+
+export type TaskType = {
+    id: number
+    title: string
+    isChecked: boolean
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let [tasks, setTasks] = useState<Array<TaskType>>([
+        {id: 1, title: "tomato", isChecked: true},
+        {id: 2, title: "cucumber", isChecked: true},
+        {id: 3, title: "orange", isChecked: false},
+        {id: 4, title: "potato", isChecked: false},
+    ])
+    return (
+        <div className="App">
+            <Todolist tasks={tasks}/>
+        </div>
+    );
 }
 
 export default App;
