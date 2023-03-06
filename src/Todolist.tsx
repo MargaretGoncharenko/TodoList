@@ -1,12 +1,25 @@
 import React from "react";
 import "./Todolist.module.css"
-import {TaskType} from "./App";
+import {FilterValuesType, TaskType} from "./App";
 
 type TodolistPropsType = {
     tasks: TaskType[]
+    ChangeTasksFilter: (value: FilterValuesType) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {
+    function onAllClickHandler() {
+        props.ChangeTasksFilter("all")
+    }
+
+    function onActiveClickHandler() {
+        props.ChangeTasksFilter("active")
+    }
+
+    function onCompletedClickHandler() {
+        props.ChangeTasksFilter("completed")
+    }
+
     return (
         <div>
             <div>
@@ -27,6 +40,11 @@ export const Todolist = (props: TodolistPropsType) => {
                     })
                 }
             </ul>
+            <div>
+                <button onClick={onAllClickHandler}>all</button>
+                <button onClick={onActiveClickHandler}>active</button>
+                <button onClick={onCompletedClickHandler}>completed</button>
+            </div>
         </div>
     )
 }

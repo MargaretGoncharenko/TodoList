@@ -7,6 +7,7 @@ export type TaskType = {
     title: string
     isChecked: boolean
 }
+export type FilterValuesType = "all" | "active" | "completed"
 
 function App() {
     let [tasks, setTasks] = useState<Array<TaskType>>([
@@ -15,9 +16,24 @@ function App() {
         {id: 3, title: "orange", isChecked: false},
         {id: 4, title: "potato", isChecked: false},
     ])
+    let tasksForTodolist = tasks
+    let [filter, setFilter] = useState<FilterValuesType>("all")
+    if (filter === "active") {
+        tasksForTodolist = tasks.filter(t => !t.isChecked)
+    }
+    if (filter === "completed") {
+        tasksForTodolist = tasks.filter(t => t.isChecked)
+    }
+
+    function ChangeTasksFilter(value: FilterValuesType) {
+        setFilter(value)
+    }
+
     return (
         <div className="App">
-            <Todolist tasks={tasks}/>
+            <Todolist tasks={tasksForTodolist}
+                      ChangeTasksFilter={ChangeTasksFilter}
+            />
         </div>
     );
 }
