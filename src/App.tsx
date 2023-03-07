@@ -35,11 +35,19 @@ function App() {
         setTasks([...restTasks])
     }
 
+    function AddNewTask(title: string) {
+        let newTask: TaskType = {id: v1(), title, isChecked: false}
+        if (newTask) {
+            setTasks([newTask, ...tasks])
+        }
+    }
+
     return (
         <div className="App">
             <Todolist tasks={tasksForTodolist}
                       ChangeTasksFilter={ChangeTasksFilter}
                       RemoveTask={RemoveTask}
+                      AddNewTask={AddNewTask}
             />
         </div>
     );
