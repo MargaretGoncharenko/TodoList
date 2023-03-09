@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import "./Todolist.module.css"
+import t from "./Todolist.module.css"
 import {FilterValuesType, TaskType} from "./App";
 
 type TodolistPropsType = {
@@ -12,6 +12,7 @@ type TodolistPropsType = {
 
 export const Todolist = (props: TodolistPropsType) => {
     let [title, setTitle] = useState("")
+    let [error, setError] = useState<null | string>(null)
 
     function onAllClickHandler() {
         props.ChangeTasksFilter("all")
@@ -30,11 +31,17 @@ export const Todolist = (props: TodolistPropsType) => {
     }
 
     function onAddNewTaskHandler() {
-        props.AddNewTask(title)
-        setTitle("")
+        if (title.trim() !== "") {
+            props.AddNewTask(title)
+            setTitle("")
+        } else {
+            setError("String is empty")
+        }
+
     }
 
     function onEnterDownHandler(e: KeyboardEvent<HTMLInputElement>) {
+        setError(null)
         if (e.code === "Enter") {
             onAddNewTaskHandler()
         }
@@ -47,8 +54,10 @@ export const Todolist = (props: TodolistPropsType) => {
                 <input value={title}
                        onChange={onChangeInputHandler}
                        onKeyDown={onEnterDownHandler}
+                       className={error ? t.error : ""}
                 />
                 <button onClick={onAddNewTaskHandler}>+</button>
+                {error && <div className={t.errorMessage}>{error}</div>}
             </div>
             <ul>
                 {

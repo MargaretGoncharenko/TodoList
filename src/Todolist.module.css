@@ -5,3 +5,11 @@ li {
 header {
     text-align: center;
 }
+
+.error {
+    border: 1px solid red;
+}
+
+.errorMessage {
+    color: red;
+}
