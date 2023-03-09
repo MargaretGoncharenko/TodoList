@@ -42,12 +42,21 @@ function App() {
         }
     }
 
+    function ChangeTaskStatus(TaskId: string, StatusValue: boolean) {
+        let TaskForChangeStatus = tasks.find(t => t.id === TaskId)
+        if (TaskForChangeStatus) {
+            TaskForChangeStatus.isChecked = StatusValue
+            setTasks([...tasks])
+        }
+    }
+
     return (
         <div className="App">
             <Todolist tasks={tasksForTodolist}
                       ChangeTasksFilter={ChangeTasksFilter}
                       RemoveTask={RemoveTask}
                       AddNewTask={AddNewTask}
+                      ChangeTaskStatus={ChangeTaskStatus}
             />
         </div>
     );
