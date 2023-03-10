@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import t from "./Todolist.module.css"
+import tl from "./Todolist.module.css"
 import {FilterValuesType, TaskType} from "./App";
 
 type TodolistPropsType = {
@@ -8,6 +8,7 @@ type TodolistPropsType = {
     RemoveTask: (TaskId: string) => void
     AddNewTask: (title: string) => void
     ChangeTaskStatus: (TaskId: string, StatusValue: boolean) => void
+    filter: FilterValuesType
 }
 
 export const Todolist = (props: TodolistPropsType) => {
@@ -54,10 +55,10 @@ export const Todolist = (props: TodolistPropsType) => {
                 <input value={title}
                        onChange={onChangeInputHandler}
                        onKeyDown={onEnterDownHandler}
-                       className={error ? t.error : ""}
+                       className={error ? tl.error : ""}
                 />
                 <button onClick={onAddNewTaskHandler}>+</button>
-                {error && <div className={t.errorMessage}>{error}</div>}
+                {error && <div className={tl.errorMessage}>{error}</div>}
             </div>
             <ul>
                 {
@@ -78,16 +79,19 @@ export const Todolist = (props: TodolistPropsType) => {
                                        checked={t.isChecked}
                                        onChange={OnChangeTaskStatusHandler}
                                 />
-                                <span>{t.title}</span>
+                                <span className={t.isChecked ? tl.checked : ""}>{t.title}</span>
                             </li>
                         )
                     })
                 }
             </ul>
             <div>
-                <button onClick={onAllClickHandler}>all</button>
-                <button onClick={onActiveClickHandler}>active</button>
-                <button onClick={onCompletedClickHandler}>completed</button>
+                <button className={props.filter === "all" ? tl.active : ""} onClick={onAllClickHandler}>all</button>
+                <button className={props.filter === "active" ? tl.active : ""} onClick={onActiveClickHandler}>active
+                </button>
+                <button className={props.filter === "completed" ? tl.active : ""}
+                        onClick={onCompletedClickHandler}>completed
+                </button>
             </div>
         </div>
     )

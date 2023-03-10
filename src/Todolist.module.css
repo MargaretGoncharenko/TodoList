@@ -13,3 +13,11 @@ header {
 .errorMessage {
     color: red;
 }
+
+.active {
+    background: darkseagreen;
+}
+
+.checked {
+    opacity: 0.5;
+}
